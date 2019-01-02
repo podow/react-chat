@@ -27,6 +27,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from "@material-ui/core/es/Paper/Paper";
 
 import classnames from 'classnames';
+import titleInitial from './utils/title-initial';
 
 const drawerWidth = 320;
 
@@ -173,7 +174,7 @@ class ResponsiveDrawer extends React.Component {
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((chat, index) => (
             <ListItem button key={index}>
-              <Avatar>{chat && chat[0]}</Avatar>
+              <Avatar>{titleInitial(chat)}</Avatar>
               <ListItemText primary={chat} />
             </ListItem>
           ))}
@@ -251,7 +252,7 @@ class ResponsiveDrawer extends React.Component {
               const isMessageFromMe = message.sender === 'me';
               const userAvatar = (
                 <Avatar>
-                  {message.sender[0]}
+                  {titleInitial(message.sender)}
                 </Avatar>
               );
 
