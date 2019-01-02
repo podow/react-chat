@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/es/Paper/Paper';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import Avatar from './Avatar';
+
 import classnames from 'classnames';
-import titleInitial from "../utils/title-initial";
 
 const styles = theme => ({
   messageWrapper: {
@@ -34,8 +34,8 @@ const styles = theme => ({
 const Message = ({ classes, sender, content }) => {
   const isMessageFromMe = sender === 'me';
   const userAvatar = (
-    <Avatar>
-      { titleInitial(sender) }
+    <Avatar colorFrom={sender} >
+      { sender }
     </Avatar>
   );
 

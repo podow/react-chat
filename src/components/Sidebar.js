@@ -14,7 +14,7 @@ import ChatList from './ChatList';
 
 const styles = () => ({
   drawer: {
-    width: '320px',
+    width: 425,
   },
   menuButton: {
     marginRight: 20,
