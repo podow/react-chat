@@ -4,9 +4,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import Sidebar from "./components/Sidebar";
-import ChatHeader from "./components/ChatHeader";
-import Chat from "./components/Chat";
+import Sidebar from "./Sidebar";
+import ChatHeader from "./ChatHeader";
+import Chat from "./Chat";
 
 const messages = [
   {
