@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { withStyles } from '@material-ui/core/styles';
+import fetch from "isomorphic-fetch";
 
 const styles = theme => ({
   submitButton: {
@@ -39,12 +40,44 @@ class SignUpForm extends Component {
     }));
   };
 
-  handleSubmit = event => {
+  validate = () => {
+    const { password, repeatPassword } = this.state;
+    const isValid = password === repeatPassword;
+
+    this.setState({
+      password: { ...password, isValid },
+      repeatPassword: { ...repeatPassword, isValid },
+    });
+
+    return isValid;
+  };
+
+  handleSubmit = async event => {
     event.preventDefault();
+
+    if (!this.validate()) {
+      return;
+    }
 
     const { username, password } = this.state;
 
-    console.log(`Username: ${username}`, `Password: ${password}`);
+    console.log(`Username: ${username.value}`, `Password: ${password.value}`);
+
+    const res = await fetch(`http://localhost:8000/v1/signup`, {
+      method: 'POST',
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value
+      }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(response => response.json())
+      .catch(reason => console.warn(reason));
+
+    console.log(res);
   };
 
   render() {
@@ -90,7 +123,7 @@ class SignUpForm extends Component {
           autoComplete="new-password"
           value={repeatPassword.value}
           onChange={this.handleInputChange}
-          error={!repeatPassword.isValid || repeatPassword.value !== password.value}
+          error={!repeatPassword.isValid}
         />
         <Button
           fullWidth
