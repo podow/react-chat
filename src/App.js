@@ -135,6 +135,14 @@ class ResponsiveDrawer extends React.Component {
     value: 0,
   };
 
+  scrollDownHistory() {
+    const {messagesWrapper} = this.refs;
+
+    if (messagesWrapper) {
+      messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+    }
+  }
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -142,6 +150,14 @@ class ResponsiveDrawer extends React.Component {
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
+
+  componentDidMount() {
+    this.scrollDownHistory();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.scrollDownHistory();
+  }
 
   render() {
     const { classes, theme } = this.props;
@@ -247,7 +263,7 @@ class ResponsiveDrawer extends React.Component {
 
           <div className={classes.toolbar} />
 
-          <div className={classes.messagesWrapper}>
+          <div className={classes.messagesWrapper} ref="messagesWrapper">
             {messages && messages.map((message, index) => {
               const isMessageFromMe = message.sender === 'me';
               const userAvatar = (
