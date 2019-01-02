@@ -1,41 +1,17 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
+import ChatPage from "./ChatPage";
+import WelcomePage from "./WelcomePage";
 
-import { withStyles } from '@material-ui/core/styles';
-
-import Sidebar from "./Sidebar";
-import ChatHeader from "./ChatHeader";
-import Chat from "./Chat";
-
-const messages = [
-  {
-    sender: 'me',
-    content: 'Hello',
-  },
-  {
-    sender: 'John Doe',
-    content: 'World!',
-  },
-];
-const chats = ['Inbox', 'Starred', 'Send email', 'Drafts'];
-
-const styles = () => ({
-  root: {
-    display: 'flex',
-    position: 'relative',
-    width: '100%',
-    height: '100%',
-  }
-});
-
-const App = ({classes}) => (
-  <div className={classes.root}>
-    <CssBaseline />
-    <ChatHeader />
-    <Sidebar chats={chats} />
-    <Chat messages={messages} />
-  </div>
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/" component={WelcomePage} />
+      <Route path="/chat" component={ChatPage} />
+      <Redirect to="/" />
+    </Switch>
+  </Router>
 );
 
-export default withStyles(styles, { withTheme: true })(App);
+export default App;
