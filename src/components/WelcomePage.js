@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Redirect} from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
@@ -35,8 +36,14 @@ class WelcomePage extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, signup, login, isAuthenticated } = this.props;
     const { activeTab } = this.state;
+
+    console.log(isAuthenticated);
+
+    if (isAuthenticated) {
+      return <Redirect to='/chat'/>
+    }
 
     return (
       <>
@@ -61,8 +68,8 @@ class WelcomePage extends Component {
                 </Tabs>
               </AppBar>
               <div className={classes.tabContent}>
-                { activeTab === 0 && <SignInForm /> }
-                { activeTab === 1 && <SignUpForm /> }
+                { activeTab === 0 && <SignInForm onSubmit={login} /> }
+                { activeTab === 1 && <SignUpForm onSubmit={signup} /> }
               </div>
             </Paper>
           </Grid>

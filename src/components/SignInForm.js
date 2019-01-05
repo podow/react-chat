@@ -5,8 +5,6 @@ import Button from '@material-ui/core/Button';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import fetch from "isomorphic-fetch";
-
 const styles = theme => ({
   submitButton: {
     marginTop: theme.spacing.unit * 3
@@ -37,28 +35,11 @@ class SignInForm extends Component {
     }));
   };
 
-  handleSubmit = async event => {
+  handleSubmit = event => {
     event.preventDefault();
-
     const { username, password } = this.state;
 
-    console.log(`Username: ${username.value}`, `Password: ${password.value}`);
-
-    const res = await fetch(`http://localhost:8000/v1/login`, {
-      method: 'POST',
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
-    })
-      .then(response => response.json())
-      .catch(reason => console.warn(reason));
-
-    console.log(res);
+    this.props.onSubmit(username.value, password.value);
   };
 
   render() {

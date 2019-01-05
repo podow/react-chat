@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { withStyles } from '@material-ui/core/styles';
-import fetch from "isomorphic-fetch";
 
 const styles = theme => ({
   submitButton: {
@@ -42,7 +41,7 @@ class SignUpForm extends Component {
 
   validate = () => {
     const { password, repeatPassword } = this.state;
-    const isValid = password === repeatPassword;
+    const isValid = password.value === repeatPassword.value;
 
     this.setState({
       password: { ...password, isValid },
@@ -61,23 +60,7 @@ class SignUpForm extends Component {
 
     const { username, password } = this.state;
 
-    console.log(`Username: ${username.value}`, `Password: ${password.value}`);
-
-    const res = await fetch(`http://localhost:8000/v1/signup`, {
-      method: 'POST',
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
-    })
-      .then(response => response.json())
-      .catch(reason => console.warn(reason));
-
-    console.log(res);
+    this.props.onSubmit(username.value, password.value);
   };
 
   render() {
