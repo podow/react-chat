@@ -39,8 +39,6 @@ class WelcomePage extends Component {
     const { classes, signup, login, isAuthenticated } = this.props;
     const { activeTab } = this.state;
 
-    console.log(isAuthenticated);
-
     if (isAuthenticated) {
       return <Redirect to='/chat'/>
     }
