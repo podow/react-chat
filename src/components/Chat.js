@@ -17,7 +17,7 @@ const styles = () => ({
   },
 });
 
-const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage, match }) => (
+const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage }) => (
   <main className={classes.chatLayout}>
     <ChatWrapper
       messages={ messages }
