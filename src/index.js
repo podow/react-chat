@@ -1,21 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 import 'typeface-roboto';
 
-ReactDOM.render(
-  <App />, 
-  document.getElementById('root')
-);
+import configureStore from './store';
+
+const store = configureStore();
+
+const render = Component => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <Component />
+    </Provider>,
+    document.getElementById('root')
+  );
+};
+
+render(App);
 
 if (module.hot) {
   module.hot.accept('./components/App', () => {
-    ReactDOM.render(
-      <App />,
-      document.getElementById('root')
-    );
+    render(App);
   })
 }
 

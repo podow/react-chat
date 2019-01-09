@@ -2,8 +2,8 @@ import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import MessageInput from "./MessageInput";
-import ChatList from "./ChatWrapper";
+import MessageInput from './MessageInput';
+import ChatWrapper from './ChatWrapper';
 
 const styles = () => ({
   chatLayout: {
@@ -17,10 +17,17 @@ const styles = () => ({
   },
 });
 
-const Chat = ({classes, messages}) => (
+const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage, match }) => (
   <main className={classes.chatLayout}>
-    <ChatList messages={messages} />
-    <MessageInput />
+    <ChatWrapper
+      messages={ messages }
+      activeUser={ activeUser }
+    />
+    <MessageInput
+      sendMessage={ content => sendMessage(activeChat._id, content) }
+      onJoinButtonClick={ joinChat }
+      activeUser={ activeUser }
+    />
   </main>
 );
 

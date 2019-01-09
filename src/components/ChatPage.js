@@ -17,17 +17,6 @@ const styles = () => ({
   }
 });
 
-const messages = [
-  {
-    sender: 'me',
-    content: 'Hello',
-  },
-  {
-    sender: 'John Doe',
-    content: 'World!',
-  },
-];
-
 class ChatPage extends Component {
 
   componentDidMount() {
@@ -40,14 +29,34 @@ class ChatPage extends Component {
   }
 
   render() {
-    const { classes, chats } = this.props;
+    const {
+      classes, chats, messages, activeUser,
+      logout, createChat, joinChat,
+      leaveChat, deleteChat, sendMessage, editUser
+    } = this.props;
 
     return (
       <div className={ classes.root }>
         <CssBaseline />
-        <ChatHeader />
-        <Sidebar chats={ chats } />
-        <Chat messages={ messages } />
+        <ChatHeader
+          activeUser={ activeUser }
+          activeChat={ chats.active }
+          leaveChat={ leaveChat }
+          deleteChat={ deleteChat }
+          logout={ logout }
+          editUser={ editUser }
+        />
+        <Sidebar
+          chats={ chats }
+          createChat={ createChat }
+        />
+        <Chat
+          messages={ messages }
+          activeChat={ chats.active }
+          activeUser={ activeUser }
+          sendMessage={ sendMessage }
+          joinChat={ joinChat }
+        />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/es/Paper/Paper';
@@ -8,6 +9,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Avatar from './Avatar';
 
 import classnames from 'classnames';
+
+import randomColor from '../utils/color-from';
+import senderName from '../utils/sender-name';
 
 const styles = theme => ({
   messageWrapper: {
@@ -31,8 +35,26 @@ const styles = theme => ({
   }
 });
 
-const Message = ({ classes, sender, content }) => {
+const Message = ({ classes, sender, content, activeUser, createdAt, statusMessage }) => {
   const isMessageFromMe = sender === 'me';
+  const displayedName = senderName(sender);
+
+  if (!statusMessage) {
+    return (
+      <div className={ classes.messageWrapper }>
+        <Typography className={ classes.statusMessage }>
+          <Typography variant="caption" style={{ color: randomColor(sender._id) }} className={ classes }>
+            { displayedName }
+          </Typography>
+          { content }
+          <Typography variant="caption" component="span">
+            { moment(createdAt).fromNow() }
+          </Typography>
+        </Typography>
+      </div>
+    );
+  }
+
   const userAvatar = (
     <Avatar colorFrom={sender} >
       { sender }
@@ -53,11 +75,14 @@ const Message = ({ classes, sender, content }) => {
           isMessageFromMe && classes.messageFromMe
         )}
       >
-        <Typography variant='caption'>
-          { sender }
+        <Typography variant='caption' style={{ color: randomColor(sender._id) }}>
+          { displayedName }
         </Typography>
         <Typography variant='body1'>
           { content }
+        </Typography>
+        <Typography variant="caption" className={ classes.time }>
+          { moment(createdAt).fromNow() }
         </Typography>
       </Paper>
       {isMessageFromMe && userAvatar}
