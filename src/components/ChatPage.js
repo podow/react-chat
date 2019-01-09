@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -27,15 +27,30 @@ const messages = [
     content: 'World!',
   },
 ];
-const chats = ['Inbox', 'Starred', 'Send email', 'Drafts'];
 
-const ChatPage = ({ classes }) => (
-  <div className={classes.root}>
-    <CssBaseline />
-    <ChatHeader />
-    <Sidebar chats={chats} />
-    <Chat messages={messages} />
-  </div>
-);
+class ChatPage extends Component {
+
+  componentDidMount() {
+    const { fetchAllChats, fetchMyChats } = this.props;
+
+    Promise.all([
+      fetchAllChats(),
+      fetchMyChats()
+    ])
+  }
+
+  render() {
+    const { classes, chats } = this.props;
+
+    return (
+      <div className={ classes.root }>
+        <CssBaseline />
+        <ChatHeader />
+        <Sidebar chats={ chats } />
+        <Chat messages={ messages } />
+      </div>
+    );
+  }
+}
 
 export default withStyles(styles)(ChatPage);
