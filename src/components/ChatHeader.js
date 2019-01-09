@@ -25,7 +25,10 @@ const styles = theme => ({
 
 class ChatHeader extends Component {
   render() {
-    const { classes, activeUser, activeChat, logout, leaveChat, deleteChat, editUser } = this.props;
+    const {
+      classes, activeUser, activeChat,
+      logout, leaveChat, deleteChat, editUser
+    } = this.props;
 
     return (
       <AppBar color="primary" position="fixed" className={ classes.appBar }>
@@ -49,11 +52,11 @@ class ChatHeader extends Component {
               Telegram clone React
             </Typography>
           ) }
-          {/*<UserMenu*/}
-            {/*activeUser={ activeUser }*/}
-            {/*onLogoutClick={ logout }*/}
-            {/*onEditProfileClick={ editUser }*/}
-          {/*/>*/}
+          <UserMenu
+            activeUser={ activeUser }
+            onLogoutClick={ logout }
+            onEditProfileClick={ editUser }
+          />
         </Toolbar>
       </AppBar>
     );
