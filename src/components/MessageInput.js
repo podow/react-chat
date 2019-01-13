@@ -32,6 +32,7 @@ class MessageInput extends Component {
     const { value } = this.state;
 
     if (event.key === 'Enter' && value) {
+      event.preventDefault();
       this.props.sendMessage(value);
       this.setState({ value: '' });
     }

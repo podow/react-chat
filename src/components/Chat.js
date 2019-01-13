@@ -24,7 +24,7 @@ const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage
       activeUser={ activeUser }
     />
     <MessageInput
-      sendMessage={ content => sendMessage(activeChat._id, content) }
+      sendMessage={ sendMessage }
       onJoinButtonClick={ joinChat }
       activeUser={ activeUser }
     />
